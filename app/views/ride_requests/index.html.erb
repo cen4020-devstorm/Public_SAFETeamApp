@@ -1,0 +1,20 @@
+<h1>My Ride History</h1>
+
+<% if @ride_request.any? %>
+  <ul>
+    <% @ride_request.each do |info| %>
+      <li>
+        <strong>Name:</strong> <%= info.name %><br>
+        <strong>Phone:</strong> <%= info.phone %><br>
+        <strong>Pickup:</strong> <%= info.location %><br>
+        <strong>Destination:</strong> <%= info.destination %><br>
+        <strong>Requested At:</strong> <%= info.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%M %p %Z") %><br>
+        <hr>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven't made any ride requests yet.</p>
+<% end %>
+
+<%= link_to "Back to Request Form", new_user_info_path %>

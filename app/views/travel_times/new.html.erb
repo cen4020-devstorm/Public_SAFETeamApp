@@ -1,0 +1,10 @@
+<%= form_with url: travel_times_path, local: true, data: { turbo: false } do |f| %>
+    <div>
+      <%= f.label :origin, "Enter your location:" %>
+      <%= f.text_field :origin, required: true %>
+    </div>
+  
+    <div>
+      <%= f.submit "Get Estimate" %>
+    </div>
+  <% end %>

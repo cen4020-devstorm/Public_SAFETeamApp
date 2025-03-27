@@ -1,0 +1,11 @@
+<h1>Estimated Travel Time</h1>
+
+<% if @duration && @distance %>
+  <p><strong>Estimated Time:</strong> <%= @duration %></p>
+  <p><strong>Estimated Distance:</strong> <%= @distance %></p>
+<% else %>
+  <p style="color: red;">🚨 No travel time data available. Please check the API response.</p>
+<% end %>
+
+<%= link_to "Check Another Location", new_travel_time_path %>
+

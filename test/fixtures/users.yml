@@ -1,0 +1,10 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+
+testUser:
+  username: testUser
+  password_digest: <%= BCrypt::Password.create("Password123!") %>
+
+anoherUser:
+  username: anotherUser
+  password_digest: <%= BCrypt::Password.create("Password123!") %>

@@ -1,0 +1,26 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  phone: MyString
+  location: MyString
+  destination: MyString
+
+two:
+  name: MyString
+  phone: MyString
+  location: MyString
+  destination: MyString
+
+
+request_one:
+  user_id: 1 
+  location: "BEH"
+  destination: "Holly Apartment A"
+  created_at: <%= Time.current %>
+
+request_two:
+  user_id: 2
+  location: "MSC"
+  destination: "Juniper Poplar"
+  created_at: <%= Time.current %>
