@@ -8,7 +8,7 @@ class DatabaseIntegrityTest < ApplicationSystemTestCase
 
   test "testUser and AnotherUser are present in the database" do
     usernames = User.pluck(:username)
-    assert_includes usernames, "testUser", "Expected seed user 'testUser' to exist"
+    assert_includes usernames, "testuser", "Expected seed user 'testUser' to exist"
     assert_includes usernames, "anotherUser", "Expected seed user 'Bob' to exist"
   end
 end

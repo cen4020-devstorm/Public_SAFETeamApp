@@ -1,8 +1,8 @@
 <h1>My Ride History</h1>
 
-<% if @ride_request.any? %>
+<% if @ride_requests.any? %>
   <ul>
-    <% @ride_request.each do |info| %>
+    <% @ride_requests.each do |info| %>
       <li>
         <strong>Name:</strong> <%= info.name %><br>
         <strong>Phone:</strong> <%= info.phone %><br>
@@ -17,4 +17,4 @@
   <p>You haven't made any ride requests yet.</p>
 <% end %>
 
-<%= link_to "Back to Request Form", new_user_info_path %>
+<%= link_to "Back to Request Form", new_ride_request_path %>
