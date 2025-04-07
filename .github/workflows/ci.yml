@@ -58,7 +58,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: safeteam_test
         ports:
           - 3306:3306
         options: >-
@@ -71,7 +71,7 @@ jobs:
       DATABASE_HOST: 127.0.0.1
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: password
-      DATABASE_NAME: test
+      DATABASE_NAME: safeteam_test
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git pkg-config google-chrome-stable

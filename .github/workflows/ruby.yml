@@ -67,7 +67,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: safeteam_test
         ports:
           - 3306:3306
         options: >-
@@ -85,9 +85,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Copy GitHub-specific database config
-        run: cp config/database.yml.github config/database.yml
+
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -95,7 +93,11 @@ jobs:
           ruby-version: '3.2.2'
           bundler-cache: true
 
-    
+      - name: Create and prepare database
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
+          
       - name: Run tests
         run: bin/rails test
   
