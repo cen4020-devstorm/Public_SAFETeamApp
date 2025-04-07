@@ -1,11 +1,12 @@
 require "test_helper"
 
-class UserInfosControllerTest < ActionDispatch::IntegrationTest
+class TravelTimeControllerTest < ActionDispatch::IntegrationTest
   
 
   test "should show error message for invalid pickup location" do
-    post user_infos_path, params: { 
-      user_info: { 
+    post ride_requests_path, params: { 
+      ride_request: { 
+        number_of_passengers: 1,
         name: "Alice",
         phone: "1234567890",
         location: "Invalid Address 1234",
@@ -18,8 +19,9 @@ class UserInfosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should display estimated waiting time for valid location" do
-    post user_infos_path, params: { 
-      user_info: { 
+    post ride_requests_path, params: { 
+      ride_request: { 
+        number_of_passengers: 1,
         name: "Alice",
         phone: "1234567890",
         location: "15210 Amberly Dr.",
