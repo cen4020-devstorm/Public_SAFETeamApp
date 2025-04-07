@@ -79,9 +79,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Copy GitHub-specific database config
-        run: cp config/database.yml.github config/database.yml
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -89,10 +86,14 @@ jobs:
           bundler-cache: true
 
 
-      - name: Run tests
+      - name: Prepare database and run tests
         env:
           RAILS_ENV: test
-        run: bin/rails db:test:prepare test test:system
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
+          bin/rails test
+          bin/rails test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
