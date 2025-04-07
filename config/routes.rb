@@ -19,8 +19,12 @@
 # end
 
 Rails.application.routes.draw do
-  # Root: go to login page
-  root "sessions#new"
+  # Root: go to home page
+  root "pages#index"
+
+  #Path to redirect controller and outside_hours page
+  get "ride_redirect", to: "pages#ride_redirect"
+  get 'outside_hours', to: 'pages#outside_hours' 
 
   # User registration
   get  "/signup", to: "users#new"
