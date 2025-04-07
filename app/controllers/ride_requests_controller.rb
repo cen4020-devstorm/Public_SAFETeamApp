@@ -10,7 +10,7 @@ class RideRequestsController < ApplicationController
     @ride_request.user = current_user
     team = Team.order(:available_at).first
     unless team
-      flash[:alert] = "No team available. Please try again later."
+      flash[:alert] = "No team available. Please try again later. "
       render :new, status: :unprocessable_entity
       return
     end
