@@ -1,2 +1,7 @@
-- name: Use GitHub-specific database config
-  run: cp config/database.yml.github config/database.yml
+test:
+  adapter: mysql2
+  database: test
+  username: root
+  password: password
+  host: localhost
+  encoding: utf8
