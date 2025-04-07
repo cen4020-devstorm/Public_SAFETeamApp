@@ -2,7 +2,7 @@ require "httparty"
 require "json"
 
 class TravelTimeService
-  GOOGLE_API_KEY = "api keys" 
+  GOOGLE_API_KEY = ENV["GOOGLE_API_KEY"]
 
   # Function to get latitude/longitude from an address
   def self.get_coordinates(address)
