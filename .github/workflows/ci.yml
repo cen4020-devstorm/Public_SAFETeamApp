@@ -81,13 +81,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Copy GitHub-specific database config
+        run: cp config/database.yml.github config/database.yml
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-      - name: Copy GitHub-specific database config
-        run: cp config/database.yml.github config/database.yml
+
 
       - name: Run tests
         env:
