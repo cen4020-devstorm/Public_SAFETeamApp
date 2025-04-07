@@ -12,3 +12,11 @@ two:
 test_user:
   username: testuser
   password_digest: <%= BCrypt::Password.create("Password123!") %>
+
+bob:
+  username: Bob
+  password_digest: <%= BCrypt::Password.create("BobPassword123!") %>
+
+another_user:
+  username: anotherUser
+  password_digest: <%= BCrypt::Password.create("AnotherPassword!") %>
