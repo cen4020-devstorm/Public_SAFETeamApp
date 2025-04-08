@@ -20,11 +20,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_06_000616) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "team_id", null: false
+    t.integer "number_of_passengers"
     t.index ["team_id"], name: "index_ride_requests_on_team_id"
     t.index ["user_id"], name: "index_ride_requests_on_user_id"
   end
 
-  create_table "teams", charset: "utf8mb3", force: :cascade do |t|
+  create_table "teams", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "available_at"
     t.datetime "created_at", null: false

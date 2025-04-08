@@ -1,10 +1,32 @@
 class RideRequestsController < ApplicationController
   before_action :require_login
 
+  # Initializes a new instance of the RideRequest model and assigns it to an instance variable.
+  # This action is typically used to render a form for creating a new ride request.
   def new
     @ride_request = RideRequest.new
   end
 
+  # Creates a new ride request and associates it with the currently logged-in user.
+  # Validates the ride request and calculates the estimated wait time and distance
+  # from the driver's location to the pickup location.
+  #
+  # Steps:
+  # - Initializes a new RideRequest object with the provided parameters.
+  # - Associates the ride request with the current user.
+  # - Validates the ride request.
+  # - Retrieves the coordinates for the pickup location using TravelTimeService.
+  # - If the pickup location is invalid, displays an error message and re-renders the form.
+  # - Calculates the travel time and distance from the driver's location to the pickup location.
+  # - If the travel time calculation fails, displays an error message and re-renders the form.
+  # - If successful, saves the ride request, calculates waiting time and distance, and renders the show view.
+  #
+  # Flash Messages:
+  # - Displays an alert if the pickup location is invalid or if there is an error in calculating travel time.
+  #
+  # Renders:
+  # - :new with status :unprocessable_entity if validation or service calls fail.
+  # - :show if the ride request is successfully created.
   def create
     @ride_request = RideRequest.new(ride_request_params)
     @ride_request.user = current_user
@@ -87,8 +109,11 @@ class RideRequestsController < ApplicationController
 
   private
 
+  # Strong parameter method for ride requests.
+  # Ensures only the permitted attributes are allowed through the params.
+  # @return [ActionController::Parameters] Filtered parameters containing :name, :phone, :location, and :destination.
   def ride_request_params
-    params.require(:ride_request).permit(:name, :phone, :location, :destination)
+    params.require(:ride_request).permit(:name, :phone, :location, :destination, :number_of_passengers)
   end
 
   def require_login

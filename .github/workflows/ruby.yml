@@ -13,8 +13,30 @@ jobs:
   test:
     runs-on: ubuntu-22.04
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: safeteam_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    env:
+      RAILS_ENV: test
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: test
+
     steps:
       - uses: actions/checkout@v4
+
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -22,8 +44,14 @@ jobs:
           ruby-version: '3.2.2'
           bundler-cache: true
 
+      - name: Create and prepare database
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
+          
       - name: Run tests
-        run: echo "hello"
+        run: bin/rails test
+  
 
   lint:
     name: Rubocop Lint
