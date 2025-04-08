@@ -35,6 +35,12 @@ Rails.application.routes.draw do
   post   "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  #Admin Routes
+  get 'admin_dashboard', to: 'admin#dashboard'
+
+  get "ride_history", to: "ride_requests#index"
+  get "current_ride", to: "ride_requests#show"
+
   # Ride request system
   # This creates routes for user_infos#new, user_infos#create, and user_infos#show and user_infos#index
   resources :ride_requests, only: [:new, :create, :show, :index]
