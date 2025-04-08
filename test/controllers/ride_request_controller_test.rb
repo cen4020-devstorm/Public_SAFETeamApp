@@ -22,13 +22,13 @@ class RideRequestTest < ActiveSupport::TestCase
   test "should not be valid with number_of_passengers less than 1" do
     @ride_request.number_of_passengers = 0
     assert_not @ride_request.valid?
-    assert_includes @ride_request.errors[:number_of_passengers], "You must have at least 1 passenger."
+    assert_includes @ride_request.errors[:number_of_passengers], ": You must have at least 1 passenger."
   end
 
   test "should not be valid with number_of_passengers greater than 2" do
     @ride_request.number_of_passengers = 3
     assert_not @ride_request.valid?
-    assert_includes @ride_request.errors[:number_of_passengers], "Online requests are limited to 2 passengers. Please call 813-974-SAFE (7233) for larger groups."
+    assert_includes @ride_request.errors[:number_of_passengers], ": Online requests are limited to 2 passengers. Please call 813-974-SAFE (7233) for larger groups."
   end
 
   test "should be valid with number_of_passengers equal to 2" do
@@ -39,6 +39,6 @@ class RideRequestTest < ActiveSupport::TestCase
   test "should not be valid without number_of_passengers" do
     @ride_request.number_of_passengers = nil
     assert_not @ride_request.valid?
-    assert_includes @ride_request.errors[:number_of_passengers], "The number of passengers must be a number"
+    assert_includes @ride_request.errors[:number_of_passengers], ": The number of passengers must be a number"
   end
 end
