@@ -87,7 +87,7 @@ class RideRequestsController < ApplicationController
   end
 
   def index
-    @ride_requests = current_user.ride_request.order(created_at: :desc)
+    @ride_requests = current_user.ride_requests.order(created_at: :desc)
   end
 
   private
