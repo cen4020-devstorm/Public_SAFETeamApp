@@ -37,4 +37,8 @@ Rails.application.routes.draw do
   resources :travel_times, only: [:new, :create, :show]
 end
 
+Rails.application.routes.draw do
+  # Define a route for selecting a building and getting the address
+  get '/select_building_address', to: 'buildings#select_building_address'
+end
 
