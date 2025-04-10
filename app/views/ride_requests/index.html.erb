@@ -1,30 +1,20 @@
-<div class="container mx-auto pt-75 flex justify-center items-center h-screen" style="background-color: #006747;">
-  <body class="text-left font-sans text-white flex justify-center items-start w-full py-8" style="background-color: #006747;">
-    <div class="w-3/4">
-      <h1 class="text-3xl font-bold underline mt-10 text-white">My Ride History</h1>
+<h1>My Ride History</h1>
 
-        <% if @ride_requests.any? %>
-          <ul>
-            <% @ride_requests.each do |info| %>
-              <li>
-                <strong>Name:</strong> <%= info.name %><br>
-                <strong>Phone:</strong> <%= info.phone %><br>
-                <strong>Pickup:</strong> <%= info.location %><br>
-                <strong>Destination:</strong> <%= info.destination %><br>
-                <strong>Requested At:</strong> <%= info.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%M %p %Z") %><br>
-                <hr>
-              </li>
-            <% end %>
-          </ul>
-        <% else %>
-          <!-- No Ride Requests Message -->
-          <p class="text-lg text-white mt-4">"You haven't made any ride requests yet."</p>
-        <% end %>
-  
-        <!-- Back to Request Form Button -->
-        <div class="mt-6 text-center">
-          <%= link_to "Back to Request Form", new_ride_request_path, class: "bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-200" %>
-          </div>
-        </div>
-      </body>
-    </div>
+<% if @ride_request.any? %>
+  <ul>
+    <% @ride_request.each do |info| %>
+      <li>
+        <strong>Name:</strong> <%= info.name %><br>
+        <strong>Phone:</strong> <%= info.phone %><br>
+        <strong>Pickup:</strong> <%= info.location %><br>
+        <strong>Destination:</strong> <%= info.destination %><br>
+        <strong>Requested At:</strong> <%= info.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%M %p %Z") %><br>
+        <hr>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven't made any ride requests yet.</p>
+<% end %>
+
+<%= link_to "Back to Request Form", new_user_info_path %>
