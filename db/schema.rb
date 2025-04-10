@@ -27,7 +27,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_211020) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role"
   end
 
   add_foreign_key "ride_requests", "users"
