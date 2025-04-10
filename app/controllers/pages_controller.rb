@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
     def ride_redirect
+        if current_user&.admin?
+            redirect_to admin_dashboard_path and return
+        end
         now = Time.current.in_time_zone("Eastern Time (US & Canada)")
 
         if within_op_hours(now)
