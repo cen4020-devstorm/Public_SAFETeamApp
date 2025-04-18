@@ -1,74 +1,44 @@
 require "test_helper"
 
-class RideRequestsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = User.create!(username: "testuser", password: "password")
-
-    # Log in
-    post login_path, params: {
-      username: "testuser",
-      password: "password"
-    }
-  end
-  
-  test "should save valid user info and show confirmation message" do
-    post ride_requests_path, params: { 
-      ride_request: { 
-        name: "Alice",
-        phone: "1234567890",
-        location: "16041 Tampa Palms Blvd W, Tampa, FL 33647",
-        destination: "601 E Kennedy Blvd, Tampa, FL"
-      } 
-    }
-
-    assert_response :success
-    assert_select "h1", "Your Ride Request"
-    assert_select "p", text: "Your request has been confirmed!"
+class RideRequestTest < ActiveSupport::TestCase
+  def setup
+    @user = users(:one) # Assuming you have a fixture for users
+    @team = teams(:one) # Assuming you have a fixture for teams
+    @ride_request = RideRequest.new(
+      name: "John Doe",
+      phone: "1234567890",
+      location: "123 Main St",
+      destination: "456 Elm St",
+      number_of_passengers: 1,
+      user: @user,
+      team: @team
+    )
   end
 
-  test "should not save without name" do
-    post ride_request_path, params: { 
-      ride_request: { 
-        name: "asd",
-        phone: "1234567890",
-        location: "15210 Amberly Dr.",
-        destination: "601 E Kennedy Blvd, Tampa, FL"
-      } 
-    }
-
-    assert_response :success
-    assert_select "h1", "Your Ride Request"
-    assert_select "p", text: "Your request has been confirmed!"
+  test "should be valid with valid number_of_passengers" do
+    assert @ride_request.valid?
   end
 
-  test "should not save with non-numeric phone" do
-    post ride_request_path, params: { 
-      ride_request: { 
-        name: "Alice",
-        phone: "123",
-        location: "15210 Amberly Dr.",
-        destination: "601 E Kennedy Blvd, Tampa, FL"
-      } 
-    }
-
-    assert_response :success
-    assert_select "h1", "Your Ride Request"
-    assert_select "p", text: "Your request has been confirmed!"
+  test "should not be valid with number_of_passengers less than 1" do
+    @ride_request.number_of_passengers = 0
+    assert_not @ride_request.valid?
+    assert_includes @ride_request.errors[:number_of_passengers], "You must have at least 1 passenger."
   end
 
-  test "should not save with empty fields" do
-    post ride_request_path, params: { 
-      ride_request: { 
-        name: "asd",
-        phone: "134",
-        location: "Tampa Palms Blvd W, Tampa, FL 33647",
-        destination: "5022 Wesley Dr, Tampa, FL 33647"
-      } 
-    }
+  test "should not be valid with number_of_passengers greater than 2" do
+    @ride_request.number_of_passengers = 3
+    assert_not @ride_request.valid?
+    assert_includes @ride_request.errors[:number_of_passengers], "Online requests are limited to 2 passengers. Please call 813-974-SAFE (7233) for larger groups."
+  end
 
-    assert_response :success
-    assert_select "h1", "Your Ride Request"
-    assert_select "p", text: "Your request has been confirmed!"
+  test "should be valid with number_of_passengers equal to 2" do
+    @ride_request.number_of_passengers = 2
+    assert @ride_request.valid?
+  end
+
+  test "should not be valid without number_of_passengers" do
+    @ride_request.number_of_passengers = nil
+    assert_not @ride_request.valid?
+    assert_includes @ride_request.errors[:number_of_passengers], "The number of passengers must be a number"
   end
 end
-

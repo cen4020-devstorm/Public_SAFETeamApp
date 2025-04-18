@@ -18,6 +18,18 @@
     <% end %>
 
     <%= form_with model: @ride_request, local: true, data: { turbo: false } do |f| %>
+
+      <div class="py-1">
+        <%= f.label :number_of_passengers, "Number of Passengers:" %>
+        <%= f.text_field :number_of_passengers, 
+          inputmode: "numeric",
+          class: "focus:outline-none px-1 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-black", 
+          id: "passenger-count" %>
+      </div>
+
+      <p id="passenger-warning" style="color: yellow; font-weight: bold; display: none;">
+        For parties larger than 2, please call 813-974-SAFE (7233). Online requests are limited to 2 passengers.
+      </p>
       <div class = "py-1 text-center">
         <%= f.label :name, "Name:" %>
         <%= f.text_field :name, class: "px-1 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-black" %>
@@ -43,4 +55,31 @@
       </div>
     <% end %>
   </body>
+
+
+  <script>
+
+    // JavaScript to handle the passenger count input and warning message
+    // If the user somehow bypasses this in an attempt for malicious behavior, the server-side validation will still catch it.
+    // Server-side logic occurs in Rails validation between model & controller
+    document.addEventListener("DOMContentLoaded", function () {
+      const countInput = document.getElementById("passenger-count");
+      const submitButton = document.querySelector("input[type='submit']");
+      const warningMessage = document.getElementById("passenger-warning");
+
+      countInput.addEventListener("input", function () {
+        const count = parseInt(this.value);
+        if (count > 2) {
+          warningMessage.style.display = "block";
+          submitButton.disabled = true;
+          submitButton.classList.add("opacity-50", "cursor-not-allowed");
+        } else {
+          warningMessage.style.display = "none";
+          submitButton.disabled = false;
+          submitButton.classList.remove("opacity-50", "cursor-not-allowed");
+        }
+      });
+    });
+  </script>
+
 </div>

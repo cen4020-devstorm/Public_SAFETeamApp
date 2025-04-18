@@ -10,9 +10,12 @@
 <p><strong>Destination:</strong> <%= @ride_request.destination %></p>
 
 <h2>Estimated Waiting Time</h2>
-<p><strong>Time Until Pickup:</strong> <%= @waiting_time %></p>
+<p><strong>Time Until Pickup:</strong> <%= @waiting_time %>minutes</p>
 <p><strong>Driver Distance:</strong> <%= @waiting_distance %></p>
+<p><strong>Driving Time (Pickup ➝ Destination):</strong> <%= @driving_time %></p>
+<p><strong>Driving Distance:</strong> <%= @driving_distance %></p>
+<p><strong>Team Assigned:</strong> <%= @ride_request.team.name %> (ID: <%= @ride_request.team.id %>)</p>
 
-<%= link_to "Request Another Ride", new_user_info_path %>
-<%= link_to "View My Ride History", user_infos_path %>
+<%= link_to "Request Another Ride", new_ride_request_path %>
+<%= link_to "View My Ride History", ride_requests_path %>
 
