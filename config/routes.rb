@@ -37,4 +37,9 @@ Rails.application.routes.draw do
   resources :travel_times, only: [:new, :create, :show]
 end
 
+Rails.application.routes.draw do
+  # Define a route for selecting a building and getting the zone
+  get '/select_building_zone', to: 'buildings#select_building_zone'
+end
+
 
