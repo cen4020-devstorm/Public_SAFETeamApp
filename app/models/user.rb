@@ -1,5 +1,14 @@
 class User < ApplicationRecord
     has_secure_password
+
+    def admin?
+        role == "admin"
+      end
+    
+    def user?
+        role == "user"
+        end
+
     validates :username,
         presence: true,
         uniqueness: true,

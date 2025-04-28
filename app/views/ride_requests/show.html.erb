@@ -1,21 +1,39 @@
+<nav class="bg-white flex items-center justify-between px-6 py-4 relative">
+  <div class="flex items-center space-x-4">
+    <%= image_tag "WhiteUSF.png", alt: "University of South Florida", class: "h-10 w-auto" %> 
+  </div>
 
+  <h1 class="absolute left-1/2 transform -translate-x-1/2 text-white font-bold text-xl">
+    Ride Request
+  </h1>
 
-<h1>Your Ride Request</h1>
+  <div class="flex items-center space-x-4">
+    <%= link_to "New Ride", new_ride_request_path, class: "text-[#006747] hover:underline font-semibold" %>
+    <%= link_to "Ride History", ride_requests_path, method: :delete, class: "text-[#006747] hover:underline font-semibold" %>
+    <% if current_user&.admin? %>
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "text-[#006747] hover:underline font-semibold" %>
+    <% end %>
+    <%= link_to "Log Out", logout_path, method: :delete, class: "text-[#006747] hover:underline font-semibold" %>
+  </div>
+</nav>
+<div class="mx-auto pt-8 flex justify-center items-start min-h-screen" style="background-color: #006747;">
+  <div class="w-1/2 text-white font-sans">    
+    <div class="bg-white rounded-lg shadow-md p-6 text-black space-y-4">
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-green-800">Your Ride Request</h2>
+      <p class="text-green-400 font-bold mb-4">Your request has been confirmed!</p>
+      <p><strong>Name:</strong> <%= @ride_request.name %></p>
+      <p><strong>Phone:</strong> <%= @ride_request.phone %></p>
+      <p><strong>Pickup Location:</strong> <%= @ride_request.location %></p>
+      <p><strong>Destination:</strong> <%= @ride_request.destination %></p>
 
-<p style="color: green; font-weight: bold;">Your request has been confirmed!</p>
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-green-800">Estimated Waiting Time</h2>
+      
+      <p><strong>Time Until Pickup:</strong> <%= @waiting_time %> minutes</p>
+      <p><strong>Driving Time (Pickup ➝ Destination):</strong> <%= @driving_time %> minutes</p>
+      <p><strong>Team Assigned:</strong> <%= @ride_request.team.name %> (ID: <%= @ride_request.team.id %>)</p>
+    </div>
 
-<p><strong>Name:</strong> <%= @ride_request.name %></p>
-<p><strong>Phone:</strong> <%= @ride_request.phone %></p>
-<p><strong>Pickup Location:</strong> <%= @ride_request.location %></p>
-<p><strong>Destination:</strong> <%= @ride_request.destination %></p>
+  </div>
+</div>
 
-<h2>Estimated Waiting Time</h2>
-<p><strong>Time Until Pickup:</strong> <%= @waiting_time %>minutes</p>
-<p><strong>Driver Distance:</strong> <%= @waiting_distance %></p>
-<p><strong>Driving Time (Pickup ➝ Destination):</strong> <%= @driving_time %></p>
-<p><strong>Driving Distance:</strong> <%= @driving_distance %></p>
-<p><strong>Team Assigned:</strong> <%= @ride_request.team.name %> (ID: <%= @ride_request.team.id %>)</p>
-
-<%= link_to "Request Another Ride", new_ride_request_path %>
-<%= link_to "View My Ride History", ride_requests_path %>
 

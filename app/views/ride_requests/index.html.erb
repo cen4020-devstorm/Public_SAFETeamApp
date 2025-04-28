@@ -1,20 +1,51 @@
-<h1>My Ride History</h1>
+<nav class="bg-white flex items-center justify-between px-6 py-4 relative">
+  <div class="flex items-center space-x-4">
+    <%= image_tag "WhiteUSF.png", alt: "University of South Florida", class: "h-10 w-auto" %> 
+  </div>
 
-<% if @ride_requests.any? %>
-  <ul>
-    <% @ride_requests.each do |info| %>
-      <li>
-        <strong>Name:</strong> <%= info.name %><br>
-        <strong>Phone:</strong> <%= info.phone %><br>
-        <strong>Pickup:</strong> <%= info.location %><br>
-        <strong>Destination:</strong> <%= info.destination %><br>
-        <strong>Requested At:</strong> <%= info.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%M %p %Z") %><br>
-        <hr>
-      </li>
+  <h1 class="absolute left-1/2 transform -translate-x-1/2 text-[#006747] font-bold text-xl">
+    Ride History
+  </h1>
+
+  <div class="flex items-center space-x-4">
+    <%= link_to "New Ride", new_ride_request_path, class: "text-[#006747] hover:underline font-semibold" %>
+    <%= link_to "Ride History", ride_requests_path, method: :delete, class: "text-[#006747] hover:underline font-semibold" %>
+    <% if current_user&.admin? %>
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "text-[#006747] hover:underline font-semibold" %>
     <% end %>
-  </ul>
-<% else %>
-  <p>You haven't made any ride requests yet.</p>
-<% end %>
+    <%= link_to "Log Out", logout_path, method: :delete, class: "text-[#006747] hover:underline font-semibold" %>
+  </div>
+</nav>
 
-<%= link_to "Back to Request Form", new_ride_request_path %>
+
+<div class="mx-auto pt-20 flex justify-center items-start min-h-screen text-left font-sans text-white w-full py-8" style="background-color: #006747;">
+  <div class="w-3/4">
+
+    <% if @ride_requests.any? %>
+      <div class="space-y-6">
+        <% @ride_requests.each do |info| %>
+          <div class="bg-white rounded-lg shadow-md p-6 text-black">
+            <div class="grid grid-cols-5 gap-4 font-semibold mb-2">
+              <div>Name</div>
+              <div>Phone</div>
+              <div>Pickup</div>
+              <div>Destination</div>
+              <div>Requested At</div>
+            </div>
+            <div class="grid grid-cols-5 gap-4">
+              <div><%= info.name %></div>
+              <div><%= info.phone %></div>
+              <div><%= info.location %></div>
+              <div><%= info.destination %></div>
+              <div><%= info.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %I:%M %p %Z") %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-lg text-white mt-4">You haven't made any ride requests yet.</p>
+    <% end %>
+
+  </div>
+</div>
+

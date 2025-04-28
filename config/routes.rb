@@ -33,11 +33,28 @@ Rails.application.routes.draw do
   # User login/logout
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  get "/logout", to: "sessions#destroy"
 
+  #Admin Routes
+  get 'admin_dashboard', to: 'admin#dashboard'
+
+  resources :ride_requests
+  
+  Rails.application.routes.draw do
+    # Define a route for selecting a building and getting the address
+    get '/select_building_address', to: 'buildings#select_building_address'
+  end
+
+  resources :ride_requests do
+    member do
+      post :notify_on_the_way
+      post :notify_arrived
+      post :complete
+    end
+  end
   # Ride request system
   # This creates routes for user_infos#new, user_infos#create, and user_infos#show and user_infos#index
-  resources :ride_requests, only: [:new, :create, :show, :index]
+  resources :ride_requests, only: [:new, :create, :show, :index, :destroy]
   resources :travel_times, only: [:new, :create, :show]
 end
 
