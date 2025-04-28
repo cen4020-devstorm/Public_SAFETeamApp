@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_06_000616) do
-  create_table "ride_requests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_234737) do
+  create_table "ride_requests", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name"
     t.string "phone"
     t.string "location"
@@ -19,26 +19,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_06_000616) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.bigint "team_id", null: false
+    t.integer "team_id"
     t.integer "number_of_passengers"
-    t.index ["team_id"], name: "index_ride_requests_on_team_id"
     t.index ["user_id"], name: "index_ride_requests_on_user_id"
   end
 
-  create_table "teams", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+  create_table "teams", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "available_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
   end
 
-  add_foreign_key "ride_requests", "teams"
   add_foreign_key "ride_requests", "users"
 end

@@ -19,6 +19,12 @@ User.find_or_create_by!(username: "Bob") do |user|
   user.password_confirmation = "Password123!"
 end
 
+User.find_or_create_by!(username: "Gary") do |user|
+  user.password = "Admin123!"
+  user.password_confirmation = "Admin123!"
+  user.role = "admin"
+end
+
 5.times do |i|
   Team.create(name: "Team #{i + 1}", available_at: Time.current)
 end

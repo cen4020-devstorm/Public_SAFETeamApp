@@ -1,12 +1,11 @@
-class CreateTeams < ActiveRecord::Migration[8.0]
+class CreateTeams < ActiveRecord::Migration[6.1]
   def change
-    create_table :teams do |t|
-      t.string :name
-      t.datetime :available_at
-      t.timestamps
+    unless table_exists?(:teams)
+      create_table :teams do |t|
+        t.string :name
+        # other columns
+        t.timestamps
+      end
     end
-
-    add_column :ride_requests, :team_id, :integer
-    add_foreign_key :ride_requests, :teams
   end
 end

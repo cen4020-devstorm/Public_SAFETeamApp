@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SAFE Team - USF</title>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-green-800 flex flex-col items-center justify-center min-h-screen text-white font-sans" style="background-color: #006747;">
+  <%= image_tag "USFLogo.png", alt: "University of South Florida", class: "h-20 mb-6" %>
+
+  <div class="text-center px-4">
+    <h1 class="text-5xl font-bold mb-4">SAFE Team</h1>
+    <p class="text-lg font-semibold">HOURS: Sunday - Thursday (6:30pm - 2:00am)</p>
+    <p class="mt-2 text-lg">Need a ride? Our team will escort you to any place on campus.</p>
+
+    <a href="<%= login_path %>" class="mt-6 inline-block bg-white text-green-800 font-semibold py-2 px-6 rounded-full shadow-md hover:bg-gray-200 transition">
+      BOOK A RIDE
+    </a>
+  </div>
+
+
+  <div class="flex gap-10 mt-10">
+    <a href="https://www.instagram.com/usfsafeteam/" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
+      <i class="fa fa-instagram" style="font-size:40px;"></i>
+    </a>
+
+    
+    <a href="tel:8139747233" class="hover:opacity-80 flex items-center gap-2">
+      <i class="fa fa-phone" style="font-size:40px;"></i>
+    </a>
+
+    
+    <a href="https://x.com/usfsafeteam" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
+      <i class="fa fa-twitter" style="font-size:40px;"></i>
+    </a>
+  </div>
+</body>
+</html>
